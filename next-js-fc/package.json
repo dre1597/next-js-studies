@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fake:api": "npm run json-server --watch db.json --port 8000",
+    "fake:api:delay": "npm run json-server --watch db.json --port 8000 --delay 5000"
   },
   "dependencies": {
     "@types/node": "18.15.11",
