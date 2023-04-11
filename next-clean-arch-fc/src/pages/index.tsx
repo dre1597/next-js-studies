@@ -2,11 +2,11 @@ import { GetServerSideProps, NextPage } from 'next';
 import { http } from '@/utils/http';
 import { Product } from '@/utils/models';
 
-type HomeProps = {
+type HomePageProps = {
   products: Product[];
 }
 
-const Home: NextPage<HomeProps> = ({ products }) => {
+const HomePage: NextPage<HomePageProps> = ({ products }) => {
   return (
     <div>
       <h1>Ecommerce</h1>
@@ -21,7 +21,7 @@ const Home: NextPage<HomeProps> = ({ products }) => {
   );
 };
 
-export default Home;
+export default HomePage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data: products } = await http.get('products');
