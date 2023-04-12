@@ -27,7 +27,10 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('products', JSON.stringify(products));
+    if (products.length !== 0) {
+      localStorage.setItem('products', JSON.stringify(products));
+    }
+
   }, [products]);
 
   const addToCart = useCallback((product: Product) => {

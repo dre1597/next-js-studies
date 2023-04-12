@@ -11,11 +11,15 @@ type ProductDetailsPageProps = {
 const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({ product }) => {
   const cartContext = useContext(CartContext);
 
+  const handleClick = () => {
+    cartContext.addToCart(product);
+  };
+
   return (
     <div>
       <h3>{ product.name }</h3>
       <label>Preço: </label> { product.price }
-      <button onClick={ () => cartContext.addToCart(product) }>Add to cart</button>
+      <button onClick={ handleClick }>Add to cart</button>
     </div>
   );
 };
