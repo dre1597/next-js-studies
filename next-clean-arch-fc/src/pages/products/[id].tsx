@@ -1,17 +1,21 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { http } from '@/utils/http';
 import { Product } from '@/utils/models';
+import { useContext } from 'react';
+import { CartContext } from '@/context/cart.provider';
 
 type ProductDetailsPageProps = {
   product: Product
 }
 
 const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({ product }) => {
+  const cartContext = useContext(CartContext);
+
   return (
     <div>
       <h3>{ product.name }</h3>
       <label>Preço: </label> { product.price }
-      <button>Add to cart</button>
+      <button onClick={ () => cartContext.addToCart(product) }>Add to cart</button>
     </div>
   );
 };
