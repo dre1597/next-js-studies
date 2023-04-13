@@ -1,12 +1,12 @@
-export type Product = {
+export type ProductFakeApiModel = {
   id: number;
   name: string;
   description: string;
   price: number;
 }
 
-export type Order = {
+export type OrderFakeApiModel = {
   id: number;
-  products: Product[],
+  products: ProductFakeApiModel[],
   credit_card_number: string;
 }

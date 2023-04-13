@@ -1,10 +1,11 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { http } from '@/utils/http';
-import { Product } from '@/utils/models';
 import Link from 'next/link';
+import { FindAllProductsUseCase } from '@/@core/domain/application/product/find-all/find-all-products.use-case';
+import { container, Registry } from '@/@core/domain/infra/container-registry';
+import { ProductFakeApiModel } from '@/utils/models';
 
 type HomePageProps = {
-  products: Product[];
+  products: ProductFakeApiModel[];
 }
 
 const HomePage: NextPage<HomePageProps> = ({ products }) => {
@@ -27,10 +28,11 @@ const HomePage: NextPage<HomePageProps> = ({ products }) => {
 
 export default HomePage;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data: products } = await http.get('products');
+export const getServerSideProps: GetServerSideProps = async () => {
+  const useCase = container.get<FindAllProductsUseCase>(Registry.FindAllProductsUseCase);
+  const products = await useCase.execute();
 
   return {
-    props: { products }
+    props: { products: products.map((product) => product.toJSON()) }
   };
 };

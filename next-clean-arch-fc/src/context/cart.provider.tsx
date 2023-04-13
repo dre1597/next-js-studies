@@ -1,10 +1,10 @@
-import { Product } from '@/utils/models';
+import { ProductFakeApiModel } from '@/utils/models';
 import React, { createContext, PropsWithChildren, useCallback, useEffect, useMemo } from 'react';
 
 export type CardContextType = {
-  products: Product[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (product: Product) => void;
+  products: ProductFakeApiModel[];
+  addToCart: (product: ProductFakeApiModel) => void;
+  removeFromCart: (product: ProductFakeApiModel) => void;
   clearCart: () => void;
   total: number;
 }
@@ -20,7 +20,7 @@ const defaultContext: CardContextType = {
 export const CartContext = createContext<CardContextType>(defaultContext);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [products, setProducts] = React.useState<Product[]>([]);
+  const [products, setProducts] = React.useState<ProductFakeApiModel[]>([]);
 
   useEffect(() => {
     setProducts(JSON.parse(localStorage.getItem('products') || '[]'));
@@ -33,11 +33,11 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   }, [products]);
 
-  const addToCart = useCallback((product: Product) => {
+  const addToCart = useCallback((product: ProductFakeApiModel) => {
     setProducts((products) => [...products, product]);
   }, []);
 
-  const removeFromCart = useCallback((product: Product) => {
+  const removeFromCart = useCallback((product: ProductFakeApiModel) => {
     setProducts((products) => products.filter(p => p.id !== product.id));
   }, []);
 

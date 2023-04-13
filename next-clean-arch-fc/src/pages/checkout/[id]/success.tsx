@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { http } from '@/utils/http';
-import { Order } from '@/utils/models';
+import { OrderFakeApiModel } from '@/utils/models';
 
 type CheckoutSuccessPageProps = {
-  order: Order;
+  order: OrderFakeApiModel;
 }
 
 export const CheckoutSuccessPage: NextPage<CheckoutSuccessPageProps> = ({ order }) => {
