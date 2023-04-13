@@ -15,8 +15,9 @@ export const CheckoutPage: NextPage = () => {
     const creditCardNumber = event.currentTarget.credit_card_number.value;
 
     const { data: order } = await http.post('orders', {
+      id: Math.floor(Math.random()),
       products: cartContext.products,
-      credit_card_number: creditCardNumber
+      creditCardNumber: creditCardNumber
     });
 
     await router.push(`/checkout/${ order.id }/success`);

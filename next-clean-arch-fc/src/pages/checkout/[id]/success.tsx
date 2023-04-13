@@ -1,14 +1,44 @@
-import { NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { http } from '@/utils/http';
+import { Order } from '@/utils/models';
 
-export const SuccessPage: NextPage = () => {
+type CheckoutSuccessPageProps = {
+  order: Order;
+}
+
+export const CheckoutSuccessPage: NextPage<CheckoutSuccessPageProps> = ({ order }) => {
   return (
     <div>
       <h3>Success!</h3>
       <ul>
-        <li></li>
+        {
+          order.products.map(product => (
+            <li key={ product.id }>
+              { product.name } - { product.price }
+            </li>
+          ))
+        }
       </ul>
     </div>
   );
 };
 
-export default SuccessPage;
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { id } = context.params || {};
+
+  const { data: order } = await http.get(`orders/${ id }`);
+  return {
+    props: {
+      order,
+    }
+  };
+};
+
+export default CheckoutSuccessPage;
