@@ -11,10 +11,13 @@ import {
   RemoveProductFromCartUseCase
 } from '@/@core/application/cart/remove-product/remove-product-from-cart.use-case';
 import { ClearCartUseCase } from '@/@core/application/cart/clear-cart/clear-cart.use-case';
+import { ProcessOrderUseCase } from '@/@core/application/order/process-order.use-case';
+import { OrderHttpGateway } from '@/@core/infra/gateways/order-http.gateway';
 
 export const Registry = {
   AxiosAdapter: Symbol.for('AxiosAdapter'),
   ProductGateway: Symbol.for('ProductGateway'),
+  OrderGateway: Symbol.for('OrderGateway'),
   CartGateway: Symbol.for('CartGateway'),
   FindAllProductsUseCase: Symbol.for('FindAllProductsUseCase'),
   FindProductByIdUseCase: Symbol.for('FindProductByIdUseCase'),
@@ -22,6 +25,7 @@ export const Registry = {
   ClearCartUseCase: Symbol.for('ClearCartUseCase'),
   AddProductInCartUseCase: Symbol.for('AddProductInCartUseCase'),
   RemoveProductFromCartUseCase: Symbol.for('RemoveProductFromCartUseCase'),
+  ProcessOrderUseCase: Symbol.for('ProcessOrderUseCase'),
 };
 
 export const container = new Container();
@@ -31,6 +35,9 @@ container.bind(Registry.ProductGateway).toDynamicValue(
   (context) => new ProductHttpGateway(context.container.get(Registry.AxiosAdapter))
 );
 container.bind(Registry.CartGateway).to(CartLocalStorageGateway);
+container.bind(Registry.OrderGateway).toDynamicValue(
+  (context) => new OrderHttpGateway(context.container.get(Registry.AxiosAdapter))
+);
 container.bind(Registry.FindAllProductsUseCase).toDynamicValue(
   (context) => new FindAllProductsUseCase(context.container.get(Registry.ProductGateway))
 );
@@ -48,4 +55,10 @@ container.bind(Registry.AddProductInCartUseCase).toDynamicValue(
 );
 container.bind(Registry.RemoveProductFromCartUseCase).toDynamicValue(
   (context) => new RemoveProductFromCartUseCase(context.container.get(Registry.CartGateway))
+);
+container.bind(Registry.ProcessOrderUseCase).toDynamicValue(
+  (context) => new ProcessOrderUseCase(
+    context.container.get(Registry.OrderGateway),
+    context.container.get(Registry.CartGateway)
+  )
 );

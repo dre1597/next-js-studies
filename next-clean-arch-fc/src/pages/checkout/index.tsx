@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
 import { FormEvent, useContext } from 'react';
 import { CartContext } from '@/context/cart.provider';
-import { http } from '@/utils/http';
 import { useRouter } from 'next/router';
+import { container, Registry } from '@/@core/infra/container-registry';
+import { ProcessOrderUseCase } from '@/@core/application/order/process-order.use-case';
 
 export const CheckoutPage: NextPage = () => {
 
@@ -14,13 +15,14 @@ export const CheckoutPage: NextPage = () => {
 
     const creditCardNumber = event.currentTarget.credit_card_number.value;
 
-    const { data: order } = await http.post('orders', {
-      id: Math.floor(Math.random()),
-      products: cartContext.cart.products.map((product) => ({ ...product.props })),
-      creditCardNumber: creditCardNumber
+    const processOrderUseCase = container.get<ProcessOrderUseCase>(Registry.ProcessOrderUseCase);
+
+    const order = await processOrderUseCase.execute({
+      products: cartContext.cart.products,
+      creditCardNumber
     });
 
-    await cartContext.clearCart();
+    cartContext.reload();
 
     await router.push(`/checkout/${ order.id }/success`);
   };
