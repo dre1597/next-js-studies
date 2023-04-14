@@ -1,59 +1,57 @@
-import { ProductFakeApiModel } from '@/utils/models';
-import React, { createContext, PropsWithChildren, useCallback, useEffect, useMemo } from 'react';
+import React, { createContext, PropsWithChildren, useCallback } from 'react';
+import { Cart } from '@/@core/domain/entities/cart';
+import { container, Registry } from '@/@core/infra/container-registry';
+import { AddProductInCartUseCase } from '@/@core/application/cart/add-product/add-product-in-cart.use-case';
+import { Product } from '@/@core/domain/entities/product';
+import {
+  RemoveProductFromCartUseCase
+} from '@/@core/application/cart/remove-product/remove-product-from-cart.use-case';
+import { ClearCartUseCase } from '@/@core/application/cart/clear-cart/clear-cart.use-case';
 
 export type CardContextType = {
-  products: ProductFakeApiModel[];
-  addToCart: (product: ProductFakeApiModel) => void;
-  removeFromCart: (product: ProductFakeApiModel) => void;
-  clearCart: () => void;
-  total: number;
+  cart: Cart;
+  addToCart: (product: Product) => Promise<void>;
+  removeFromCart: (productId: number) => Promise<void>;
+  clearCart: () => Promise<void>;
 }
 
 const defaultContext: CardContextType = {
-  products: [],
-  addToCart: () => {},
-  removeFromCart: () => {},
-  clearCart: () => {},
-  total: 0
+  cart: new Cart({ products: [] }),
+  addToCart: async () => {},
+  removeFromCart: async () => {},
+  clearCart: async () => {},
 };
 
 export const CartContext = createContext<CardContextType>(defaultContext);
 
+const addProductInCartUseCase = container.get<AddProductInCartUseCase>(Registry.AddProductInCartUseCase);
+const removeProductFromCartUseCase = container.get<RemoveProductFromCartUseCase>(Registry.RemoveProductFromCartUseCase);
+const clearCartUseCase = container.get<ClearCartUseCase>(Registry.ClearCartUseCase);
+
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [products, setProducts] = React.useState<ProductFakeApiModel[]>([]);
+  const [cart, setCart] = React.useState<Cart>(defaultContext.cart);
 
-  useEffect(() => {
-    setProducts(JSON.parse(localStorage.getItem('products') || '[]'));
+  const addToCart = useCallback(async (product: Product) => {
+    const cart = await addProductInCartUseCase.execute(product);
+    setCart(cart);
   }, []);
 
-  useEffect(() => {
-    if (products.length !== 0) {
-      localStorage.setItem('products', JSON.stringify(products));
-    }
-
-  }, [products]);
-
-  const addToCart = useCallback((product: ProductFakeApiModel) => {
-    setProducts((products) => [...products, product]);
+  const removeFromCart = useCallback(async (productId: number) => {
+    const cart = await removeProductFromCartUseCase.execute(productId);
+    setCart(cart);
   }, []);
 
-  const removeFromCart = useCallback((product: ProductFakeApiModel) => {
-    setProducts((products) => products.filter(p => p.id !== product.id));
+  const clearCart = useCallback(async () => {
+    const cart = await clearCartUseCase.execute();
+    setCart(cart);
   }, []);
-
-  const clearCart = useCallback(() => {
-    setProducts([]);
-  }, []);
-
-  const total = useMemo(() => products.reduce((acc, product) => acc + product.price, 0), [products]);
 
   return (
     <CartContext.Provider value={ {
-      products,
+      cart,
       addToCart,
       removeFromCart,
       clearCart,
-      total,
     } }
     >
       { children }
