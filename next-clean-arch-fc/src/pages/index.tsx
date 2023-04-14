@@ -11,11 +11,11 @@ type HomePageProps = {
 const HomePage: NextPage<HomePageProps> = ({ products }) => {
   return (
     <div>
-      <h1>Ecommerce</h1>
+      <h1>Ecommerce Demo FC</h1>
       <ul>
         { products.map((product, key) => (
           <li key={ key }>
-            <label>Name: </label> { product.name } |
+            <label>Name: </label> { product.name } | &nbsp;
             <Link href={ `/products/${ product.id }` }>
               Details
             </Link>

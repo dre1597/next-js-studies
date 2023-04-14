@@ -17,8 +17,8 @@ export type CardContextType = {
 
 const defaultContext: CardContextType = {
   cart: new Cart({ products: [] }),
-  addToCart: async () => {},
-  removeFromCart: async () => {},
+  addToCart: async (product: Product) => {},
+  removeFromCart: async (productId: number) => {},
   clearCart: async () => {},
   reload: () => {},
 };

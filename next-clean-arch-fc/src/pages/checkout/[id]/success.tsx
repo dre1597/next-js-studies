@@ -1,9 +1,10 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { http } from '@/utils/http';
-import { OrderFakeApiModel } from '@/utils/models';
+import { container, Registry } from '@/@core/infra/container-registry';
+import { GetOrderUseCase } from '@/@core/application/order/get-order.use-case';
+import { OrderProps } from '@/@core/domain/order/order';
 
 type CheckoutSuccessPageProps = {
-  order: OrderFakeApiModel;
+  order: OrderProps;
 }
 
 export const CheckoutSuccessPage: NextPage<CheckoutSuccessPageProps> = ({ order }) => {
@@ -33,10 +34,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params || {};
 
-  const { data: order } = await http.get(`orders/${ id }`);
+  const getOrderUseCase = container.get<GetOrderUseCase>(Registry.GetOrderUseCase);
+
+  const order = await getOrderUseCase.execute(+id!);
+
   return {
     props: {
-      order,
+      order: order.toJSON(),
     }
   };
 };

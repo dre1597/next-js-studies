@@ -11,6 +11,7 @@ import { RemoveProductFromCartUseCase } from '@/@core/application/cart/remove-pr
 import { ClearCartUseCase } from '@/@core/application/cart/clear-cart.use-case';
 import { ProcessOrderUseCase } from '@/@core/application/order/process-order.use-case';
 import { OrderHttpGateway } from '@/@core/infra/order-http.gateway';
+import { GetOrderUseCase } from '@/@core/application/order/get-order.use-case';
 
 export const Registry = {
   AxiosAdapter: Symbol.for('AxiosAdapter'),
@@ -24,6 +25,7 @@ export const Registry = {
   AddProductInCartUseCase: Symbol.for('AddProductInCartUseCase'),
   RemoveProductFromCartUseCase: Symbol.for('RemoveProductFromCartUseCase'),
   ProcessOrderUseCase: Symbol.for('ProcessOrderUseCase'),
+  GetOrderUseCase: Symbol.for('GetOrderUseCase'),
 };
 
 export const container = new Container();
@@ -59,4 +61,7 @@ container.bind(Registry.ProcessOrderUseCase).toDynamicValue(
     context.container.get(Registry.OrderGateway),
     context.container.get(Registry.CartGateway)
   )
+);
+container.bind(Registry.GetOrderUseCase).toDynamicValue(
+  (context) => new GetOrderUseCase(context.container.get(Registry.OrderGateway))
 );
