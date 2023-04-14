@@ -1,4 +1,4 @@
-import { ProductGateway } from '@/@core/domain/entities/gateways/product.gateway';
+import { ProductGateway } from '@/@core/domain/gateways/product.gateway';
 import { AxiosInstance } from 'axios';
 import { Product } from '@/@core/domain/entities/product';
 import { ProductFakeApiModel } from '@/utils/models';

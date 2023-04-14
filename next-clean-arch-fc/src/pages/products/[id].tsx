@@ -1,8 +1,8 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useContext } from 'react';
 import { CartContext } from '@/context/cart.provider';
-import { container, Registry } from '@/@core/domain/infra/container-registry';
-import { FindProductByIdUseCase } from '@/@core/domain/application/product/find-by-id/find-product-by-id.use-case';
+import { container, Registry } from '@/@core/infra/container-registry';
+import { FindProductByIdUseCase } from '@/@core/application/product/find-by-id/find-product-by-id.use-case';
 import { ProductFakeApiModel } from '@/utils/models';
 
 type ProductDetailsPageProps = {

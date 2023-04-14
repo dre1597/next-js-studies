@@ -1,8 +1,8 @@
 import { Container } from 'inversify';
-import { http } from '@/@core/domain/infra/http';
-import { ProductHttpGateway } from '@/@core/domain/infra/gateways/product-http.gateway';
-import { FindAllProductsUseCase } from '@/@core/domain/application/product/find-all/find-all-products.use-case';
-import { FindProductByIdUseCase } from '@/@core/domain/application/product/find-by-id/find-product-by-id.use-case';
+import { http } from '@/@core/infra/http';
+import { ProductHttpGateway } from '@/@core/infra/gateways/product-http.gateway';
+import { FindAllProductsUseCase } from '@/@core/application/product/find-all/find-all-products.use-case';
+import { FindProductByIdUseCase } from '@/@core/application/product/find-by-id/find-product-by-id.use-case';
 
 export const Registry = {
   AxiosAdapter: Symbol.for('AxiosAdapter'),
