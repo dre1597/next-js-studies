@@ -3,17 +3,18 @@ import { useContext } from 'react';
 import { CartContext } from '@/context/cart.provider';
 import { container, Registry } from '@/@core/infra/container-registry';
 import { FindProductByIdUseCase } from '@/@core/application/product/find-by-id/find-product-by-id.use-case';
-import { ProductFakeApiModel } from '@/utils/models';
+import { Product, ProductProps } from '@/@core/domain/entities/product';
 
 type ProductDetailsPageProps = {
-  product: ProductFakeApiModel
+  product: ProductProps
 }
 
 const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({ product }) => {
+  const productEntity = new Product({ ...product });
   const cartContext = useContext(CartContext);
 
-  const handleClick = () => {
-    cartContext.addToCart(product);
+  const handleClick = async () => {
+    await cartContext.addToCart(productEntity);
   };
 
   return (

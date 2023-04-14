@@ -2,10 +2,10 @@ import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { FindAllProductsUseCase } from '@/@core/application/product/find-all/find-all-products.use-case';
 import { container, Registry } from '@/@core/infra/container-registry';
-import { ProductFakeApiModel } from '@/utils/models';
+import { ProductProps } from '@/@core/domain/entities/product';
 
 type HomePageProps = {
-  products: ProductFakeApiModel[];
+  products: ProductProps[];
 }
 
 const HomePage: NextPage<HomePageProps> = ({ products }) => {

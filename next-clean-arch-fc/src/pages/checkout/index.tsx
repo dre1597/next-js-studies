@@ -16,9 +16,11 @@ export const CheckoutPage: NextPage = () => {
 
     const { data: order } = await http.post('orders', {
       id: Math.floor(Math.random()),
-      products: cartContext.products,
+      products: cartContext.cart.products.map((product) => ({ ...product.props })),
       creditCardNumber: creditCardNumber
     });
+
+    await cartContext.clearCart();
 
     await router.push(`/checkout/${ order.id }/success`);
   };
@@ -27,7 +29,7 @@ export const CheckoutPage: NextPage = () => {
     <div>
       <h1>Checkout Page</h1>
       <ul>
-        { cartContext.products.map(product => (
+        { cartContext.cart.products.map(product => (
           <li key={ product.id }>
             { product.name } - { product.price }
           </li>

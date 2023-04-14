@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { Container } from 'inversify';
 import { http } from '@/@core/infra/http';
 import { ProductHttpGateway } from '@/@core/infra/gateways/product-http.gateway';
