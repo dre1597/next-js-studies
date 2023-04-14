@@ -1,7 +1,7 @@
-import { Cart } from '@/@core/domain/entities/cart';
-import { CartGateway } from '@/@core/domain/gateways/cart.gateway';
+import { Cart } from '@/@core/domain/cart/cart';
+import { CartGateway } from '@/@core/domain/cart/cart.gateway';
 import { injectable } from 'inversify';
-import { Product } from '@/@core/domain/entities/product';
+import { Product } from '@/@core/domain/product/product';
 
 @injectable()
 export class CartLocalStorageGateway implements CartGateway {

@@ -1,5 +1,5 @@
-import { ProductGateway } from '@/@core/domain/gateways/product.gateway';
-import { Product } from '@/@core/domain/entities/product';
+import { ProductGateway } from '@/@core/domain/product/product.gateway';
+import { Product } from '@/@core/domain/product/product';
 
 export class FindProductByIdUseCase {
   constructor(private productGateway: ProductGateway) {}

@@ -1,6 +1,6 @@
-import { CartGateway } from '@/@core/domain/gateways/cart.gateway';
-import { Product } from '@/@core/domain/entities/product';
-import { Cart } from '@/@core/domain/entities/cart';
+import { CartGateway } from '@/@core/domain/cart/cart.gateway';
+import { Product } from '@/@core/domain/product/product';
+import { Cart } from '@/@core/domain/cart/cart';
 
 export class AddProductInCartUseCase {
   constructor(private cartGateway: CartGateway) {}

@@ -1,7 +1,7 @@
-import { OrderGateway } from '@/@core/domain/gateways/order.gateway';
-import { Product } from '@/@core/domain/entities/product';
-import { Order } from '@/@core/domain/entities/order';
-import { CartGateway } from '@/@core/domain/gateways/cart.gateway';
+import { OrderGateway } from '@/@core/domain/order/order.gateway';
+import { Product } from '@/@core/domain/product/product';
+import { Order } from '@/@core/domain/order/order';
+import { CartGateway } from '@/@core/domain/cart/cart.gateway';
 
 export class ProcessOrderUseCase {
   constructor(private orderGateway: OrderGateway, private cartGateway: CartGateway) {}

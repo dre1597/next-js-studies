@@ -1,8 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import { FindAllProductsUseCase } from '@/@core/application/product/find-all/find-all-products.use-case';
+import { FindAllProductsUseCase } from '@/@core/application/product/find-all-products.use-case';
 import { container, Registry } from '@/@core/infra/container-registry';
-import { ProductProps } from '@/@core/domain/entities/product';
+import { ProductProps } from '@/@core/domain/product/product';
 
 type HomePageProps = {
   products: ProductProps[];

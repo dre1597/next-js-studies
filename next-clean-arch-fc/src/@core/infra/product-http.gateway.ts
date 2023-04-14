@@ -1,6 +1,6 @@
-import { ProductGateway } from '@/@core/domain/gateways/product.gateway';
+import { ProductGateway } from '@/@core/domain/product/product.gateway';
 import { AxiosInstance } from 'axios';
-import { Product, ProductProps } from '@/@core/domain/entities/product';
+import { Product, ProductProps } from '@/@core/domain/product/product';
 
 export class ProductHttpGateway implements ProductGateway {
   constructor(private http: AxiosInstance) {}

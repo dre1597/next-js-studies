@@ -1,13 +1,11 @@
 import React, { createContext, PropsWithChildren, useCallback, useEffect } from 'react';
-import { Cart } from '@/@core/domain/entities/cart';
+import { Cart } from '@/@core/domain/cart/cart';
 import { container, Registry } from '@/@core/infra/container-registry';
-import { AddProductInCartUseCase } from '@/@core/application/cart/add-product/add-product-in-cart.use-case';
-import { Product } from '@/@core/domain/entities/product';
-import {
-  RemoveProductFromCartUseCase
-} from '@/@core/application/cart/remove-product/remove-product-from-cart.use-case';
-import { ClearCartUseCase } from '@/@core/application/cart/clear-cart/clear-cart.use-case';
-import { GetCartUseCase } from '@/@core/application/cart/get-cart/get-cart.use-case';
+import { AddProductInCartUseCase } from '@/@core/application/cart/add-product-in-cart.use-case';
+import { Product } from '@/@core/domain/product/product';
+import { RemoveProductFromCartUseCase } from '@/@core/application/cart/remove-product-from-cart.use-case';
+import { ClearCartUseCase } from '@/@core/application/cart/clear-cart.use-case';
+import { GetCartUseCase } from '@/@core/application/cart/get-cart.use-case';
 
 export type CardContextType = {
   cart: Cart;

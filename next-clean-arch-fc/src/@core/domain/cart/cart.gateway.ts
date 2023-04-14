@@ -1,4 +1,4 @@
-import { Cart } from '@/@core/domain/entities/cart';
+import { Cart } from '@/@core/domain/cart/cart';
 
 export interface CartGateway {
   getCart(): Promise<Cart>;

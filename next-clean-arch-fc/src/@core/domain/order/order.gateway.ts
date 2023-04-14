@@ -1,4 +1,4 @@
-import { Order } from '@/@core/domain/entities/order';
+import { Order } from '@/@core/domain/order/order';
 
 export interface OrderGateway {
   create(order: Order): Promise<Order>;

@@ -1,18 +1,16 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import { http } from '@/@core/infra/http';
-import { ProductHttpGateway } from '@/@core/infra/gateways/product-http.gateway';
-import { FindAllProductsUseCase } from '@/@core/application/product/find-all/find-all-products.use-case';
-import { FindProductByIdUseCase } from '@/@core/application/product/find-by-id/find-product-by-id.use-case';
-import { CartLocalStorageGateway } from '@/@core/infra/gateways/cart-local-storage.gateway';
-import { GetCartUseCase } from '@/@core/application/cart/get-cart/get-cart.use-case';
-import { AddProductInCartUseCase } from '@/@core/application/cart/add-product/add-product-in-cart.use-case';
-import {
-  RemoveProductFromCartUseCase
-} from '@/@core/application/cart/remove-product/remove-product-from-cart.use-case';
-import { ClearCartUseCase } from '@/@core/application/cart/clear-cart/clear-cart.use-case';
+import { ProductHttpGateway } from '@/@core/infra/product-http.gateway';
+import { FindAllProductsUseCase } from '@/@core/application/product/find-all-products.use-case';
+import { FindProductByIdUseCase } from '@/@core/application/product/find-product-by-id.use-case';
+import { CartLocalStorageGateway } from '@/@core/infra/cart-local-storage.gateway';
+import { GetCartUseCase } from '@/@core/application/cart/get-cart.use-case';
+import { AddProductInCartUseCase } from '@/@core/application/cart/add-product-in-cart.use-case';
+import { RemoveProductFromCartUseCase } from '@/@core/application/cart/remove-product-from-cart.use-case';
+import { ClearCartUseCase } from '@/@core/application/cart/clear-cart.use-case';
 import { ProcessOrderUseCase } from '@/@core/application/order/process-order.use-case';
-import { OrderHttpGateway } from '@/@core/infra/gateways/order-http.gateway';
+import { OrderHttpGateway } from '@/@core/infra/order-http.gateway';
 
 export const Registry = {
   AxiosAdapter: Symbol.for('AxiosAdapter'),

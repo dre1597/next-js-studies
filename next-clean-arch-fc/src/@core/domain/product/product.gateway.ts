@@ -1,4 +1,4 @@
-import { Product } from '@/@core/domain/entities/product';
+import { Product } from '@/@core/domain/product/product';
 
 export interface ProductGateway {
   findAll(): Promise<Product[]>;
