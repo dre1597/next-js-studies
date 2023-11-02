@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styles from '@/app/ui/home.module.css';
+import { roboto } from '@/app/ui/fonts';
+import Image from 'next/image';
 
 export default function Page() {
   return (
@@ -13,7 +15,7 @@ export default function Page() {
           {/*  className="h-0 w-0 border-b-[30px] border-l-[20px] border-r-[20px] border-b-black border-l-transparent border-r-transparent"*/}
           {/*/>*/}
           <div className={styles.shape}></div>
-          <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
+          <p className={`${roboto.className}  text-xl text-gray-800 md:text-3xl md:leading-normal`}>
             <strong>Welcome to Acme.</strong> This is the example for the{' '}
             <a href="https://nextjs.org/learn/" className="text-blue-500">
               Next.js Learn Course
@@ -29,6 +31,24 @@ export default function Page() {
         </div>
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           {/* Add Hero Images Here */}
+          {/*<img*/}
+          {/*  src="/hero.png"*/}
+          {/*  alt="Screenshots of the dashboard project showing desktop and mobile versions"*/}
+          {/*/>*/}
+          <Image
+            src="/hero-desktop.png"
+            width={1000}
+            height={760}
+            className="hidden md:block"
+            alt="Screenshots of the dashboard project showing desktop and mobile versions"
+          />
+          <Image
+            src="/hero-mobile.png"
+            width={560}
+            height={620}
+            className="block md:hidden"
+            alt="Screenshot of the dashboard project showing mobile version"
+          />
         </div>
       </div>
     </main>
